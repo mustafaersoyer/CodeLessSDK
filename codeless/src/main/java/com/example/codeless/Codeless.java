@@ -21,7 +21,14 @@ public class Codeless {
     private List<JsonObject> addedData;
     ApiInterface api =
             ApiClient.getInstance().create(ApiInterface.class);
-    public JsonObject getAllData(String username, String collectionName) {
+
+    private String username;
+    public Codeless(String username){
+        this.username=username;
+    }
+
+
+    public List<JsonObject> getAllData(String collectionName) {
         Call<List<JsonObject>> call = api.getAllData(username,collectionName);
         call.enqueue(new Callback<List<JsonObject>>() {
             @Override
@@ -34,9 +41,13 @@ public class Codeless {
                 Log.d("Error", t.getMessage());
             }
         });
-        return data.get(0);
+
+
+
+
+        return data;
     }
-    public List<JsonObject> getAllDataSync(String username, String collectionName) {
+    public List<JsonObject> getAllDataSync(String collectionName) {
 
         Call<List<JsonObject>> call = api.getAllData(username,collectionName);
         Response<List<JsonObject>> response = null;
@@ -49,7 +60,7 @@ public class Codeless {
         }
         return data;
     }
-    public JsonObject addData(JsonObject model, String username, String collectionName){
+    public JsonObject addData(JsonObject model, String collectionName){
         String body = model.toString();
         Call<List<JsonObject>> call = api.addModel(body,username,collectionName);
         call.enqueue(new Callback<List<JsonObject>>() {
@@ -65,11 +76,11 @@ public class Codeless {
         });
         return addedData.get(0);
     }
-    public void deleteData(int id, String username, String collectionName) throws IOException {
+    public void deleteData(int id,  String collectionName) throws IOException {
         Call call = api.delete(id,username,collectionName);
         call.execute();
     }
-    public void updateData(String id, JsonObject model,String username, String collectionName) throws IOException {
+    public void updateData(String id, JsonObject model, String collectionName) throws IOException {
         model.addProperty("_id",id);
         String body = model.toString();
         Call call = api.updateModel(id,body,username,collectionName);
