@@ -1,34 +1,88 @@
 package com.example.codeless;
 
 import android.util.Log;
-import android.widget.Toast;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+
+
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Codeless {
-    JsonObject movies;
-    public String GetAllData(String dbName,String collectionName){
-        ApiInterface apiInterface =
-                ApiClient.getRetrofitInstance().create(ApiInterface.class);
 
-        Call<JsonObject> call = apiInterface.getAllData(dbName,collectionName);
-        call.enqueue(new Callback<JsonObject>() {
+public class Codeless {
+    private List<JsonObject> data;
+    private List<JsonObject> addedData;
+    ApiInterface api =
+            ApiClient.getInstance().create(ApiInterface.class);
+    public JsonObject getAllData(String username, String collectionName) {
+        Call<List<JsonObject>> call = api.getAllData(username,collectionName);
+        call.enqueue(new Callback<List<JsonObject>>() {
             @Override
-            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                 movies = response.body();
-                Log.d("tagg", movies.toString());
+            public void onResponse(Call<List<JsonObject>> call, Response<List<JsonObject>> response) {
+                data = response.body();
             }
 
             @Override
-            public void onFailure(Call<JsonObject> call, Throwable t) {
+            public void onFailure(Call<List<JsonObject>> call, Throwable t) {
                 Log.d("Error", t.getMessage());
             }
-
         });
-        return movies.toString();
+        return data.get(0);
+    }
+    public List<JsonObject> getAllDataSync(String username, String collectionName) {
+
+        Call<List<JsonObject>> call = api.getAllData(username,collectionName);
+        Response<List<JsonObject>> response = null;
+        try {
+            response = call.execute();
+            data = response.body();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return data;
+    }
+    public JsonObject addData(JsonObject model, String username, String collectionName){
+        String body = model.toString();
+        Call<List<JsonObject>> call = api.addModel(body,username,collectionName);
+        call.enqueue(new Callback<List<JsonObject>>() {
+            @Override
+            public void onResponse(Call<List<JsonObject>> call, Response<List<JsonObject>> response) {
+                addedData = response.body();
+            }
+
+            @Override
+            public void onFailure(Call<List<JsonObject>> call, Throwable t) {
+                Log.d("Error", t.getMessage());
+            }
+        });
+        return addedData.get(0);
+    }
+    public void deleteData(int id, String username, String collectionName) throws IOException {
+        Call call = api.delete(id,username,collectionName);
+        call.execute();
+    }
+    public void updateData(String id, JsonObject model,String username, String collectionName) throws IOException {
+        model.addProperty("_id",id);
+        String body = model.toString();
+        Call call = api.updateModel(id,body,username,collectionName);
+        call.enqueue(new Callback<List<JsonObject>>() {
+            @Override
+            public void onResponse(Call<List<JsonObject>> call, Response<List<JsonObject>> response) {
+                addedData = response.body();
+            }
+
+            @Override
+            public void onFailure(Call<List<JsonObject>> call, Throwable t) {
+                Log.d("Error", t.getMessage());
+            }
+        });
     }
 }

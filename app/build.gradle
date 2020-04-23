@@ -26,5 +26,8 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
-    implementation 'com.github.mustafaersoyer:CodeLessSDK:0.1'
+    //implementation 'com.github.mustafaersoyer:CodeLessSDK:0.2'
+  //  implementation ':codeless'
+    implementation project(path: ':codeless')
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
 }
