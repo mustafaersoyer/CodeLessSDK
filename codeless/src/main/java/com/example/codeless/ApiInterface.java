@@ -20,9 +20,26 @@ public interface ApiInterface {
     @GET("Data/GetModelListEqual")
     Call<List<JsonObject>> getDataEqual(@Query("username") String dbName, @Query("collectionName") String collectionName,@Query("colon") String colon, @Query("value") Object value);
 
+    @GET("Data/GetModelListNotEqual")
+    Call<List<JsonObject>> getDataNotEqual(@Query("username") String dbName, @Query("collectionName") String collectionName,@Query("colon") String colon, @Query("value") Object value);
+
+    @GET("Data/GetModelListLt")
+    Call<List<JsonObject>> getDataLt(@Query("username") String dbName, @Query("collectionName") String collectionName,@Query("colon") String colon, @Query("value") int value);
+
+    @GET("Data/GetModelListLte")
+    Call<List<JsonObject>> getDataLte(@Query("username") String dbName, @Query("collectionName") String collectionName,@Query("colon") String colon, @Query("value") int value);
+
+    @GET("Data/GetModelListGt")
+    Call<List<JsonObject>> getDataGt(@Query("username") String dbName, @Query("collectionName") String collectionName,@Query("colon") String colon, @Query("value") int value);
+
+    @GET("Data/GetModelListGte")
+    Call<List<JsonObject>> getDataGte(@Query("username") String dbName, @Query("collectionName") String collectionName,@Query("colon") String colon, @Query("value") int value);
 
     @POST("Data/GetModelListEqualMany")
     Call<List<JsonObject>> getDataEqualMany(@Query("username") String dbName, @Query("collectionName") String collectionName,@Query("colon") String colon, @Body Object[] value);
+
+    @POST("Data/GetModelListNotEqualMany")
+    Call<List<JsonObject>> getDataNotEqualMany(@Query("username") String dbName, @Query("collectionName") String collectionName,@Query("colon") String colon, @Body Object[] value);
 
 
     @POST("Data/AddModel")

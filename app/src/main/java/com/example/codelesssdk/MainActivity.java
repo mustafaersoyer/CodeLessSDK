@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     //    b=codeless.addData(d,"denemeDB","characters");
 
         String[] deneme= {"00000","00111000"};
-        b = db.collection("characters").getData().whereEqualToMany("_id",deneme);
+        b = db.collection("characters").getData().lessThan("değer",2);
 
         tw.setText(b.toString());
     }

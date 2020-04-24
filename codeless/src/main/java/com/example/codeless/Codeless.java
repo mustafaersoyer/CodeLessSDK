@@ -78,6 +78,32 @@ public class Codeless {
         }
         return data;
     }
+
+
+    public List<JsonObject> whereNotEqualTo(String colon,Object value) {
+        Call<List<JsonObject>> call = api.getDataNotEqual(username, collectionName,colon,value);
+       /* call.enqueue(new Callback<List<JsonObject>>() {
+            @Override
+            public void onResponse(Call<List<JsonObject>> call, Response<List<JsonObject>> response) {
+                data = response.body();
+            }
+
+            @Override
+            public void onFailure(Call<List<JsonObject>> call, Throwable t) {
+                Log.d("Error", t.getMessage());
+            }
+        });*/
+        Response<List<JsonObject>> response = null;
+        try {
+            response = call.execute();
+            data = response.body();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return data;
+    }
+
     public List<JsonObject> whereEqualToMany(String colon,Object[] value) {
         Call<List<JsonObject>> call = api.getDataEqualMany(username, collectionName,colon,value);
        /* call.enqueue(new Callback<List<JsonObject>>() {
@@ -101,6 +127,133 @@ public class Codeless {
         }
         return data;
     }
+
+    public List<JsonObject> whereNotEqualToMany(String colon,Object[] value) {
+        Call<List<JsonObject>> call = api.getDataNotEqualMany(username, collectionName,colon,value);
+       /* call.enqueue(new Callback<List<JsonObject>>() {
+            @Override
+            public void onResponse(Call<List<JsonObject>> call, Response<List<JsonObject>> response) {
+                data = response.body();
+            }
+
+            @Override
+            public void onFailure(Call<List<JsonObject>> call, Throwable t) {
+                Log.d("Error", t.getMessage());
+            }
+        });*/
+        Response<List<JsonObject>> response = null;
+        try {
+            response = call.execute();
+            data = response.body();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return data;
+    }
+
+
+
+    public List<JsonObject> greaterThan(String colon,int value) {
+        Call<List<JsonObject>> call = api.getDataGt(username, collectionName,colon,value);
+       /* call.enqueue(new Callback<List<JsonObject>>() {
+            @Override
+            public void onResponse(Call<List<JsonObject>> call, Response<List<JsonObject>> response) {
+                data = response.body();
+            }
+
+            @Override
+            public void onFailure(Call<List<JsonObject>> call, Throwable t) {
+                Log.d("Error", t.getMessage());
+            }
+        });*/
+        Response<List<JsonObject>> response = null;
+        try {
+            response = call.execute();
+            data = response.body();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return data;
+    }
+
+    public List<JsonObject> greaterThanEqual(String colon,int value) {
+        Call<List<JsonObject>> call = api.getDataGt(username, collectionName,colon,value);
+       /* call.enqueue(new Callback<List<JsonObject>>() {
+            @Override
+            public void onResponse(Call<List<JsonObject>> call, Response<List<JsonObject>> response) {
+                data = response.body();
+            }
+
+            @Override
+            public void onFailure(Call<List<JsonObject>> call, Throwable t) {
+                Log.d("Error", t.getMessage());
+            }
+        });*/
+        Response<List<JsonObject>> response = null;
+        try {
+            response = call.execute();
+            data = response.body();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return data;
+    }
+
+    public List<JsonObject> lessThan(String colon,int value) {
+        Call<List<JsonObject>> call = api.getDataLte(username, collectionName,colon,value);
+       /* call.enqueue(new Callback<List<JsonObject>>() {
+            @Override
+            public void onResponse(Call<List<JsonObject>> call, Response<List<JsonObject>> response) {
+                data = response.body();
+            }
+
+            @Override
+            public void onFailure(Call<List<JsonObject>> call, Throwable t) {
+                Log.d("Error", t.getMessage());
+            }
+        });*/
+        Response<List<JsonObject>> response = null;
+        try {
+            response = call.execute();
+            data = response.body();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return data;
+    }
+    
+
+
+
+
+    public List<JsonObject> lessThanEqual(String colon,int value) {
+        Call<List<JsonObject>> call = api.getDataLte(username, collectionName,colon,value);
+       /* call.enqueue(new Callback<List<JsonObject>>() {
+            @Override
+            public void onResponse(Call<List<JsonObject>> call, Response<List<JsonObject>> response) {
+                data = response.body();
+            }
+
+            @Override
+            public void onFailure(Call<List<JsonObject>> call, Throwable t) {
+                Log.d("Error", t.getMessage());
+            }
+        });*/
+        Response<List<JsonObject>> response = null;
+        try {
+            response = call.execute();
+            data = response.body();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return data;
+    }
+
 
     public List<JsonObject> getAllDataSync(String collectionName) {
 
