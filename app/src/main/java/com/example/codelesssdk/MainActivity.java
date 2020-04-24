@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    Codeless codeless = new Codeless("denemeDB");
+    Codeless db = new Codeless("denemeDB");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -32,20 +32,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         TextView tw = findViewById(R.id.he);
         JsonObject d = new JsonObject();
-        JsonObject b;
+        List<JsonObject> b;
         d.addProperty("asda","asxcxcxcxcxcxcöasd");
 
       //  d.addProperty("deasd","asd");
     //    b=codeless.addData(d,"denemeDB","characters");
 
+        String[] deneme= {"00000","00111000"};
+        b = db.collection("characters").getData().whereEqualToMany("_id",deneme);
 
-        try {
-            codeless.updateData("00111000",d,"characters");
-        } catch (IOException e) {
-            e.printStackTrace();
-            Log.d("updatefail",e.getMessage());
-        }
-        //tw.setText(b.toString());
+        tw.setText(b.toString());
     }
 
 }

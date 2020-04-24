@@ -8,6 +8,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.HTTP;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Query;
@@ -15,6 +16,14 @@ import retrofit2.http.Query;
 public interface ApiInterface {
     @GET("Data/GetModelList")
     Call<List<JsonObject>> getAllData(@Query("username") String dbName, @Query("collectionName") String collectionName);
+
+    @GET("Data/GetModelListEqual")
+    Call<List<JsonObject>> getDataEqual(@Query("username") String dbName, @Query("collectionName") String collectionName,@Query("colon") String colon, @Query("value") Object value);
+
+
+    @POST("Data/GetModelListEqualMany")
+    Call<List<JsonObject>> getDataEqualMany(@Query("username") String dbName, @Query("collectionName") String collectionName,@Query("colon") String colon, @Body Object[] value);
+
 
     @POST("Data/AddModel")
     Call<List<JsonObject>> addModel(@Body String body,@Query("username") String dbName, @Query("collectionName") String collectionName);

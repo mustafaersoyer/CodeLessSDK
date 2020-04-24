@@ -23,8 +23,14 @@ public class Codeless {
             ApiClient.getInstance().create(ApiInterface.class);
 
     private String username;
+    private String collectionName;
+
     public Codeless(String username){
         this.username=username;
+    }
+    public Codeless collection(String collectionName){
+        this.collectionName=collectionName;
+        return this;
     }
 
 
@@ -41,12 +47,61 @@ public class Codeless {
                 Log.d("Error", t.getMessage());
             }
         });
-
-
-
-
         return data;
     }
+
+
+    public Codeless getData()
+    {
+        return this;
+    }
+    public List<JsonObject> whereEqualTo(String colon,Object value) {
+        Call<List<JsonObject>> call = api.getDataEqual(username, collectionName,colon,value);
+       /* call.enqueue(new Callback<List<JsonObject>>() {
+            @Override
+            public void onResponse(Call<List<JsonObject>> call, Response<List<JsonObject>> response) {
+                data = response.body();
+            }
+
+            @Override
+            public void onFailure(Call<List<JsonObject>> call, Throwable t) {
+                Log.d("Error", t.getMessage());
+            }
+        });*/
+        Response<List<JsonObject>> response = null;
+        try {
+            response = call.execute();
+            data = response.body();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return data;
+    }
+    public List<JsonObject> whereEqualToMany(String colon,Object[] value) {
+        Call<List<JsonObject>> call = api.getDataEqualMany(username, collectionName,colon,value);
+       /* call.enqueue(new Callback<List<JsonObject>>() {
+            @Override
+            public void onResponse(Call<List<JsonObject>> call, Response<List<JsonObject>> response) {
+                data = response.body();
+            }
+
+            @Override
+            public void onFailure(Call<List<JsonObject>> call, Throwable t) {
+                Log.d("Error", t.getMessage());
+            }
+        });*/
+        Response<List<JsonObject>> response = null;
+        try {
+            response = call.execute();
+            data = response.body();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return data;
+    }
+
     public List<JsonObject> getAllDataSync(String collectionName) {
 
         Call<List<JsonObject>> call = api.getAllData(username,collectionName);
